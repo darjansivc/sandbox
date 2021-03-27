@@ -2,6 +2,7 @@ package tests;
 
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 import org.testng.annotations.Test;
 import pojo.pojo_data_builders.TestDataBuilder;
 import requests.RequestFactory;
@@ -11,7 +12,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static tests.test_data.TestData.TECHNOLOGY_NEW_TITLE;
 import static utilities.Helper.technologyId;
-import static utilities.Helper.token;
 
 public class Technology {
     RequestFactory response = new RequestFactory();
@@ -19,7 +19,7 @@ public class Technology {
 
     @Test
     public void addTechnology() {
-        Response responseBody = response.postTechnologies(testData.addTechnology(TestData.TECHNOLOGY_TITLE))
+        Response responseBody = response.postTechnology(testData.addTechnology(TestData.TECHNOLOGY_TITLE))
                 .then().log().all()
                 .statusCode(200).extract().response();
 
@@ -35,8 +35,15 @@ public class Technology {
     }
 
     @Test(dependsOnMethods = "addTechnology")
+    public void getTechnology() {
+        Response responseBody = response.getTechnology(technologyId)
+                .then().log().all()
+                .statusCode(200).extract().response();
+    }
+
+    @Test(dependsOnMethods = "getTechnology")
     public void editTechnology() {
-        Response responseBody = response.putTechnologies(testData.editTechnology(TECHNOLOGY_NEW_TITLE), technologyId)
+        Response responseBody = response.putTechnology(testData.editTechnology(TECHNOLOGY_NEW_TITLE), technologyId)
                 .then().log().all()
                 .statusCode(200).extract().response();
 
@@ -48,12 +55,34 @@ public class Technology {
 
     @Test(dependsOnMethods = "editTechnology")
     public void deleteTechnology() {
-        Response responseBody = response.deleteTechnologies(technologyId)
+        Response responseBody = response.deleteTechnology(technologyId)
                 .then().log().all()
                 .statusCode(200).extract().response();
 
         JsonPath jsonPath = responseBody.jsonPath();
 
         assertThat("Unexpected 'Success' field value.", jsonPath.get("Success"), equalTo("Entry removed successfully"));
+    }
+
+    @Test(dependsOnMethods = "deleteTechnology")
+    public void getTechnologyAfterDeletion() {
+        Response responseBody = response.getTechnology(technologyId)
+                .then().log().all()
+                .statusCode(200).extract().response();
+
+        JsonPath jsonPath = responseBody.jsonPath();
+
+        assertThat("Unexpected message for 'notechnology' field value.", jsonPath.get("notechnology"), equalTo("There is no technology with technology id " + technologyId));
+    }
+
+    @Test(dependsOnMethods = "deleteTechnology")
+    public void verifyIfTechnologiesSectionIsEmpty() {
+        Response responseBody = response.getTechnologies()
+                .then()
+                .statusCode(200).extract().response();
+
+        ResponseBody body = responseBody.getBody();
+
+        assertThat("gg", body.asString(), equalTo("{}"));
     }
 }
