@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.*;
 import static tests.test_data.TestData.TECHNOLOGY_NEW_TITLE;
 import static utilities.Helper.technologyId;
 
-public class Technology {
+public class Technologies {
     RequestFactory response = new RequestFactory();
     TestDataBuilder testData = new TestDataBuilder();
 

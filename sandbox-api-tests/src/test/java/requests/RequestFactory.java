@@ -22,16 +22,24 @@ public class RequestFactory {
     }
 
     //  TECHNOLOGIES
-    public Response postTechnologies(Object body) {
+    public Response postTechnology(Object body) {
         return restClient.doPostRequestSandbox(body, Path.TECHNOLOGY);
     }
 
-    public Response putTechnologies(Object body, Integer technologyId) {
-        return restClient.doPutRequest(body, Path.TECHNOLOGY + "/" + technologyId);
+    public Response putTechnology(Object body, Integer technologyId) {
+        return restClient.doPutRequest(body, Path.TECHNOLOGY + technologyId);
     }
 
-    public Response deleteTechnologies(Integer technologyId) {
-        return restClient.doDeleteRequest( Path.TECHNOLOGY + "/" + technologyId);
+    public Response deleteTechnology(Integer technologyId) {
+        return restClient.doDeleteRequest(Path.TECHNOLOGY + technologyId);
+    }
+
+    public Response getTechnologies() {
+        return restClient.doGetRequestSandbox(Path.TECHNOLOGIES);
+    }
+
+    public Response getTechnology(Integer technologyId) {
+        return restClient.doGetRequestSandbox(Path.TECHNOLOGY + technologyId);
     }
 
     //    OTHER

@@ -10,7 +10,7 @@
 
     <test name="Add New Technology" preserve-order="true">
         <classes>
-            <class name="tests.Technology"/>
+            <class name="tests.Technologies"/>
         </classes>
     </test>
 
