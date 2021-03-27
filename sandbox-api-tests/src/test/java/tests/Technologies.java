@@ -39,6 +39,8 @@ public class Technologies {
         Response responseBody = response.getTechnology(technologyId)
                 .then().log().all()
                 .statusCode(200).extract().response();
+
+        //todo: add assertions
     }
 
     @Test(dependsOnMethods = "getTechnology")

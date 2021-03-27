@@ -22,13 +22,6 @@ public class RestClient{
     private final String password = new PropertyFile().get("password");
 
 
-    private String createSuffix() {
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("HHmmss-ddMMyyyy");
-
-        return formatter.format(date);
-    }
-
     public Response doPostRequestSandboxLogin(Object body, String endPoint) {
         return given().log().ifValidationFails()
                 .contentType(ContentType.JSON)
