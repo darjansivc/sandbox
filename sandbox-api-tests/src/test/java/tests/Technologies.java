@@ -68,7 +68,7 @@ public class Technologies {
     public void getTechnologyAfterDeletion() {
         Response responseBody = response.getTechnology(technologyId)
                 .then().log().all()
-                .statusCode(200).extract().response();
+                .statusCode(404).extract().response();
 
         JsonPath jsonPath = responseBody.jsonPath();
 
