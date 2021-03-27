@@ -34,28 +34,5 @@ public class Login {
         token = "Bearer " + jsonPath.get("token");
     }
 
-//    @Test(dependsOnMethods = "login")
-//    public void getApiProfile() {
-//        Response responseBody = response.getProfile()
-//                .then().log().ifValidationFails().log().ifError()
-//                .statusCode(200).extract().response();
-//
-//        JsonPath jsonPath = responseBody.jsonPath();
-//
-//        System.out.println("Response: " + jsonPath.prettyPrint());
-//
-//    }
-
-//    @Test
-//    public void getUseCases() {
-//        Response responseBody = response.getAllUseCases()
-//                .then().log().ifValidationFails().log().ifError()
-//                .statusCode(204).extract().response();
-//
-//        JsonPath jsonPath = responseBody.jsonPath();
-//
-//        System.out.println("Response: " + jsonPath.prettyPrint());
-//
-//    }
 }
 
