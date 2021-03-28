@@ -22,7 +22,7 @@ public class RestClient{
     private final String password = new PropertyFile().get("password");
 
 
-    public Response doPostRequestSandboxLogin(Object body, String endPoint) {
+    public Response doPostRequestLogin(Object body, String endPoint) {
         return given().log().ifValidationFails()
                 .contentType(ContentType.JSON)
                 .when()
@@ -30,7 +30,7 @@ public class RestClient{
                 .post(BASE_URL + endPoint);
     }
 
-    public Response doPostRequestSandbox(Object body, String endPoint) {
+    public Response doPostRequest(Object body, String endPoint) {
         return given().header("authorization", token).header("Content-Type", "application/json").log().all()
                 .contentType(ContentType.JSON)
                 .when()

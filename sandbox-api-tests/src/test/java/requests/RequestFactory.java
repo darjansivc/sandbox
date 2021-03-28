@@ -5,9 +5,6 @@ package requests;
 
 import constants.Path;
 import io.restassured.response.Response;
-import pojo.pojo_classes.LoginPojo;
-
-import java.security.PublicKey;
 //import org.apache.tika.io.IOUtils;
 //import tests.TestBase;
 
@@ -18,12 +15,17 @@ public class RequestFactory {
     //  LOGIN
     public Response postLogin(Object body) {
 
-        return restClient.doPostRequestSandboxLogin(body, "/api/users/login");
+        return restClient.doPostRequestLogin(body, "/api/users/login");
+    }
+
+    //  USE CASES
+    public Response postUseCase(Object body){
+        return restClient.doPostRequest(body, Path.USE_CASE);
     }
 
     //  TECHNOLOGIES
     public Response postTechnology(Object body) {
-        return restClient.doPostRequestSandbox(body, Path.TECHNOLOGY);
+        return restClient.doPostRequest(body, Path.TECHNOLOGY);
     }
 
     public Response putTechnology(Object body, Integer technologyId) {
@@ -45,7 +47,7 @@ public class RequestFactory {
     //    OTHER
 
     public Response postProject(Object body) {
-        return restClient.doPostRequestSandbox(body, Path.PROJECT);
+        return restClient.doPostRequest(body, Path.PROJECT);
     }
 
     public Response getProfile() {
@@ -56,6 +58,6 @@ public class RequestFactory {
         return restClient.doGetRequestSandbox("/api/usecases/all");
     }
 
-//testData.addLoginPayload(email, password)
+
 
 }
