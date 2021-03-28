@@ -21,7 +21,7 @@ public class Login {
     @Test
     public void login() {
         Response responseBody = response.postLogin(testData.addLoginPayload(email, password))
-                .then().log().ifValidationFails().log().ifError()
+                .then().log().all()
                 .statusCode(200).extract().response();
 
         JsonPath jsonPath = responseBody.jsonPath();

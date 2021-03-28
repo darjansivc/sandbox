@@ -38,7 +38,7 @@ public class RestClient{
                 .post(BASE_URL + endPoint);
     }
 
-    public Response doGetRequestSandbox(String endPoint) {
+    public Response doGetRequest(String endPoint) {
         return given().header("authorization", token).header("Content-Type", "application/json").log().all()
                 .contentType(ContentType.JSON)
                 .when()

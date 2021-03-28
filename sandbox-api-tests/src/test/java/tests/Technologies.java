@@ -85,6 +85,6 @@ public class Technologies {
 
         ResponseBody body = responseBody.getBody();
 
-        assertThat("gg", body.asString(), equalTo("{}"));
+        assertThat("Unexpected response value. Empty response expected.", body.asString(), equalTo("{}"));
     }
 }

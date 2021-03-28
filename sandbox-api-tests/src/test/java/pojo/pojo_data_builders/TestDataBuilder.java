@@ -14,7 +14,7 @@ public class TestDataBuilder {
         loginPojo.setPassword(password);
         return loginPojo;
     }
-
+    //todo: svesti na po jednu metodu
     public UseCasesPojo addUseCase(String title, String description, String expectedResult, List<String> useCaseSteps, Boolean automated) {
         UseCasesPojo useCasesPojo = new UseCasesPojo();
         useCasesPojo.setTitle(title);

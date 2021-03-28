@@ -23,6 +23,22 @@ public class RequestFactory {
         return restClient.doPostRequest(body, Path.USE_CASE);
     }
 
+    public Response getUseCases(){
+        return restClient.doGetRequest(Path.USE_CASES_ALL);
+    }
+
+    public Response getUseCase(Integer useCaseId){
+        return restClient.doGetRequest(Path.USE_CASES_SPECIFIC + useCaseId);
+    }
+
+    public Response putUseCase(Object body, Integer useCaseId){
+        return restClient.doPutRequest(body, Path.USE_CASE + useCaseId);
+    }
+
+    public Response deleteUseCase(Integer useCaseId) {
+        return restClient.doDeleteRequest(Path.USE_CASE + useCaseId);
+    }
+
     //  TECHNOLOGIES
     public Response postTechnology(Object body) {
         return restClient.doPostRequest(body, Path.TECHNOLOGY);
@@ -37,11 +53,11 @@ public class RequestFactory {
     }
 
     public Response getTechnologies() {
-        return restClient.doGetRequestSandbox(Path.TECHNOLOGIES);
+        return restClient.doGetRequest(Path.TECHNOLOGIES);
     }
 
     public Response getTechnology(Integer technologyId) {
-        return restClient.doGetRequestSandbox(Path.TECHNOLOGY + technologyId);
+        return restClient.doGetRequest(Path.TECHNOLOGY + technologyId);
     }
 
     //    OTHER
@@ -51,11 +67,11 @@ public class RequestFactory {
     }
 
     public Response getProfile() {
-        return restClient.doGetRequestSandbox("/api/profile");
+        return restClient.doGetRequest("/api/profile");
     }
 
     public Response getAllUseCases() {
-        return restClient.doGetRequestSandbox("/api/usecases/all");
+        return restClient.doGetRequest("/api/usecases/all");
     }
 
 

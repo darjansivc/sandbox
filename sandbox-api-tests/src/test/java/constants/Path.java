@@ -8,7 +8,9 @@ public class Path {
     public static final String TECHNOLOGIES = "/api/technologies/all";
 
     public static final String USE_CASES_ALL = "/api/usecases/all";
-    public static final String USE_CASE = "/api/usecases/usecase";
+    public static final String USE_CASES_SPECIFIC = "/api/usecases/";
+
+    public static final String USE_CASE = "/api/usecases/usecase/";
 
 
 
