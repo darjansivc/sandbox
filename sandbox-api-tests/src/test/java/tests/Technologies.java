@@ -40,7 +40,10 @@ public class Technologies {
                 .then().log().all()
                 .statusCode(200).extract().response();
 
-        //todo: add assertions
+        JsonPath jsonPath = responseBody.jsonPath();
+
+        assertThat("Unexpected 'technology_id' field value.", jsonPath.get("technology_id"), equalTo(technologyId));
+        assertThat("Unexpected 'technology_title' field value.", jsonPath.get("technology_title"), equalTo(TestData.TECHNOLOGY_TITLE));
     }
 
     @Test(dependsOnMethods = "getTechnology")

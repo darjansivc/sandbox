@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
-import static utilities.Helper.technologyId;
+import static org.hamcrest.Matchers.*;
 
 public class UseCases {
     RequestFactory response = new RequestFactory();
@@ -21,6 +19,7 @@ public class UseCases {
     ArrayList<String> useCasesTitles = new ArrayList<String>();
     ArrayList<Integer> usecaseIds = new ArrayList<Integer>();
     private static final int numberOfIterations = 2;
+    private JsonPath initialUseCaseResponse;
 
     @Test
     public void addUseCase() {
@@ -35,6 +34,7 @@ public class UseCases {
 
             JsonPath jsonPath = responseBody.jsonPath();
 
+            //todo: dodaj poruke
             assertThat("", jsonPath.get("user_id"), notNullValue());
             assertThat("", jsonPath.get("automated"), equalTo(TestData.AUTOMATED));
             assertThat("", jsonPath.get("title"), equalTo(TestData.TITLE + i));
@@ -62,37 +62,53 @@ public class UseCases {
         for (String useCasesTitle : useCasesTitles) {
             for (int j = 0; j < useCaseIdsNumber; j++) {
                 if (useCasesTitle.equals(jsonPath.get("[" + j + "].title"))) {
-                    System.out.println("usecase_id: " + jsonPath.get("[" + j + "].usecase_id") + " - " + useCasesTitle);
+                    assertThat("Unexpected 'title' value. Should be equal.", jsonPath.get("[" + j + "].title"), equalTo(useCasesTitle));
                     usecaseIds.add(jsonPath.get("[" + j + "].usecase_id"));
                 }
             }
         }
-        //todo: malo bolje assertacije
     }
 
     @Test(dependsOnMethods = "verifyIfUseCasesAreAdded")
     public void editFirstUseCase() {
-        Response response1 = response.getUseCase(usecaseIds.get(0))
-                .then().log().all()
-                .statusCode(200).extract().response();
+        for (Integer usecaseId : usecaseIds) {
+            Response response1 = response.getUseCase(usecaseId)
+                    .then().log().all()
+                    .statusCode(200).extract().response();
 
-        JsonPath jsonPath = response1.jsonPath();
+            JsonPath jsonPath = response1.jsonPath();
+            initialUseCaseResponse = jsonPath;
 
-        Response response2 = response.putUseCase(testData.addUseCase(
-                "This field previously had " + jsonPath.get("title").toString().length() + " characters ",
-                "This field previously had " + jsonPath.get("description").toString().length() + " characters ",
-                "This field previously had " + jsonPath.get("expected_result").toString().length() + " characters ",
-                TestData.useCaseSteps,
-                false), usecaseIds.get(0))
-                .then().log().all()
-                .statusCode(200).extract().response();
-
-        //todo: assertacije
-
+            response.putUseCase(testData.addUseCase(
+                    "This field previously had " + jsonPath.get("title").toString().length() + " characters ",
+                    "This field previously had " + jsonPath.get("description").toString().length() + " characters ",
+                    "This field previously had " + jsonPath.get("expected_result").toString().length() + " characters ",
+                    TestData.useCaseSteps,
+                    false), usecaseId)
+                    .then().log().all()
+                    .statusCode(200);
+        }
     }
 
     @Test(dependsOnMethods = "editFirstUseCase")
-    public void deleteCreatedUseCases(){
+    public void verifyIfUseCaseIsEdited() {
+        for (int i = 0; i < usecaseIds.size(); i++) {
+            Response responseBody = response.getUseCase(usecaseIds.get(i))
+                    .then().log().all()
+                    .statusCode(200).extract().response();
+
+            JsonPath currentUseCaseResponse = responseBody.jsonPath();
+
+            assertThat("Unexpected 'title' field value. Values should not be equal.", currentUseCaseResponse.get("title"), not(equalTo(initialUseCaseResponse.get("title"))));
+            assertThat("Unexpected 'description' field value. Values should not be equal.", currentUseCaseResponse.get("description"), not(equalTo(initialUseCaseResponse.get("description"))));
+            assertThat("Unexpected 'expected_result' field value. Values should not be equal.", currentUseCaseResponse.get("expected_result"), not(equalTo(initialUseCaseResponse.get("expected_result"))));
+        }
+
+
+    }
+
+    @Test(dependsOnMethods = "verifyIfUseCaseIsEdited")
+    public void deleteCreatedUseCases() {
         for (Integer useCaseId : usecaseIds) {
             Response responseBody = response.deleteUseCase(useCaseId)
                     .then().log().all()
@@ -104,6 +120,8 @@ public class UseCases {
         }
 
     }
+
+    //todo: OPCIONO-PROVERI DA LI POSTOJE U LISTI
 
 }
 
