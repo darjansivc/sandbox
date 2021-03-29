@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Testing suit - TEST Server" >
+
+
+    <test name="Login" group-by-instances="true">
+        <classes>
+            <class name="loginTests.LoginTest"/>
+
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.shared.tests.ChangeToSupplierTenantTest"/>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.modules.adm.tests.AdmBaseElementsTest"/>-->
+        </classes>
+    </test>
+
+<!--    <test name="[IOD] Cost center order - Product without customizations/m2m" group-by-instances="true" >-->
+<!--        <classes>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.shared.tests.module_change.ChangeModuleToIODTest"/>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.modules.iod.tests.cost_centers_orders.CostCenterOrderTest"/>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.modules.iod.tests.cost_centers_orders.CostCenterOrderFinishOrderTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="[IOD] Cost center order - Product with customization" group-by-instances="true">-->
+<!--        <classes>-->
+<!--&lt;!&ndash;            <class name="com.b_op.zugseil_automation.zugseil_app.modules.iod.tests.cost_centers_orders.CostCenterOrderSetCustomizationForProductTest"/>&ndash;&gt;-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.modules.iod.tests.cost_centers_orders.CreateCostCenterOrderWithoutCostCenterSelectionTest"/>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.modules.iod.tests.cost_centers_orders.CostCenterOrderFinishOrderTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="[IOD] Employee order - Product without customizations/m2m" group-by-instances="true">-->
+<!--        <classes>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.modules.iod.tests.employee_order.EmployeeOrderTest"/>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.modules.iod.tests.employee_order.EmployeeOrderFinishOrderTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="[IOD] Employee order - Product with customization" group-by-instances="true">-->
+<!--        <classes>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.modules.iod.tests.employee_order.CreateEmployeeOrderWithProductCustomizationWithoutActivityTest"/>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.modules.iod.tests.employee_order.EmployeeOrderFinishOrderTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="[PEO] Personal order - Product without customizations/m2m" group-by-instances="true">-->
+<!--        <classes>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.shared.tests.module_change.ChangeModuleToPEOTest"/>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.modules.peo.tests.CreatePersonalOrderTest"/>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.modules.iod.tests.employee_order.EmployeeOrderFinishOrderTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="Wait for components to process orders" group-by-instances="true">-->
+<!--        <classes>-->
+<!--&lt;!&ndash;            <class name="com.b_op.zugseil_automation.zugseil_app.shared.tests.components.waitForDOPTest"/>&ndash;&gt;-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.shared.tests.components.waitForSPCTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="[WPC] Finish orders in WPC" group-by-instances="true">-->
+<!--        <classes>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.shared.tests.module_change.ChangeModuleToWPCTest"/>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.modules.wpc.tests.MoveDistributionOrderToPickingControlTest"/>-->
+<!--            <class name="com.b_op.zugseil_automation.zugseil_app.modules.wpc.tests.FinishOrderTest"/>-->
+
+<!--        </classes>-->
+<!--    </test>-->
+
+</suite>
