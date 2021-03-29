@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static utilities.Helper.token;
 
-public class Login {
+public class LoginTest {
     RequestFactory response = new RequestFactory();
     TestDataBuilder testData = new TestDataBuilder();
     private final String email = new PropertyFile().get("email");

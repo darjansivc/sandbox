@@ -13,13 +13,13 @@ import static org.hamcrest.Matchers.*;
 import static tests.test_data.TestData.TECHNOLOGY_NEW_TITLE;
 import static utilities.Helper.technologyId;
 
-public class Technologies {
+public class TechnologyTest {
     RequestFactory response = new RequestFactory();
     TestDataBuilder testData = new TestDataBuilder();
 
     @Test
     public void addTechnology() {
-        Response responseBody = response.postTechnology(testData.addTechnology(TestData.TECHNOLOGY_TITLE))
+        Response responseBody = response.postTechnology(testData.generatePojoWithTechnology(TestData.TECHNOLOGY_TITLE))
                 .then().log().all()
                 .statusCode(200).extract().response();
 
@@ -48,7 +48,7 @@ public class Technologies {
 
     @Test(dependsOnMethods = "getTechnology")
     public void editTechnology() {
-        Response responseBody = response.putTechnology(testData.editTechnology(TECHNOLOGY_NEW_TITLE), technologyId)
+        Response responseBody = response.putTechnology(testData.generatePojoWithTechnology(TECHNOLOGY_NEW_TITLE), technologyId)
                 .then().log().all()
                 .statusCode(200).extract().response();
 

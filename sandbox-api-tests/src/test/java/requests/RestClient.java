@@ -17,12 +17,8 @@ import static io.restassured.RestAssured.given;
 
 public class RestClient{
     private final String BASE_URL = new PropertyFile().get("baseURL");
-    TestDataBuilder data = new TestDataBuilder();
-    private final String email = new PropertyFile().get("email");
-    private final String password = new PropertyFile().get("password");
 
-
-    public Response doPostRequestLogin(Object body, String endPoint) {
+    public Response doPostRequestWithoutAuthorization(Object body, String endPoint) {
         return given().log().ifValidationFails()
                 .contentType(ContentType.JSON)
                 .when()
@@ -30,7 +26,7 @@ public class RestClient{
                 .post(BASE_URL + endPoint);
     }
 
-    public Response doPostRequest(Object body, String endPoint) {
+    public Response doPostRequestWithAuthorization(Object body, String endPoint) {
         return given().header("authorization", token).header("Content-Type", "application/json").log().all()
                 .contentType(ContentType.JSON)
                 .when()
