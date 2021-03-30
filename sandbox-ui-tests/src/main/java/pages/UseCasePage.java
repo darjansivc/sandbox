@@ -5,10 +5,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.utils.BasePage;
+import test_data.PageLink;
+import utils.PropertyFile;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class UseCasePage extends BasePage {
+    private final String baseUrl = new PropertyFile().get("baseUrl");
+    String PREFIX = "This field previously had ";
+    String SUFFIX = " characters ";
+
+
+    public static ArrayList<Integer> useCasesIds = new ArrayList<>();
+
     public UseCasePage(WebDriver driver) {
         super(driver);
     }
@@ -43,6 +54,15 @@ public class UseCasePage extends BasePage {
     @FindBy(css = "a.list-group-item.list-group-item-action")
     private List<WebElement> useCasesTitles;
 
+    @FindBy(css = "a.list-group-item.list-group-item-action")
+    private WebElement useCasesTitle;
+
+    @FindBy(css = "[data-testid='remove_usecase_btn']")
+    private WebElement btnDelete;
+
+    @FindBy(css = "button.btn.btn-lg.btn-danger")
+    private WebElement btnConfirmDelete;
+
     public void goToUseCasesPage() {
         useCases.click();
     }
@@ -52,7 +72,6 @@ public class UseCasePage extends BasePage {
     }
 
     public void createUseCase(String title, String description, String expectedResult, String stepId) {
-        waitForElementToBeClickable(btnCreateUseCase);
         btnCreateUseCase.click();
         txtTitle.sendKeys(title);
         txtDescription.sendKeys(description);
@@ -64,12 +83,71 @@ public class UseCasePage extends BasePage {
 
         clickWithJavaScript(cbSwitch);
         btnSubmit.click();
+        waitForElementToBeClickable(btnCreateUseCase);
+
+
+//        getUseCaseIds(title);
     }
 
     public void getUseCaseText() {
         for (int i = 0; i < useCasesTitles.size(); i++) {
             System.out.println("da: " + useCasesTitles.get(i).getText());
         }
+    }
+
+    private void addUseCaseIdToList(Integer useCaseId) {
+        useCasesIds.add(useCaseId);
+    }
+
+    public void getUseCaseIds(String useCaseTitle) {
+        for (int i = 0; i < useCasesTitles.size(); i++) {
+            if (useCasesTitles.get(i).getText().equals(useCaseTitle)) {
+                useCasesTitles.get(i).click();
+                String currentUrl = driver.getCurrentUrl();
+                String[] useCaseId = currentUrl.split(PageLink.USE_CASES);
+                System.out.println("Use Case ID: " + useCaseId[1]);
+                addUseCaseIdToList(Integer.valueOf(useCaseId[1]));
+                driver.navigate().back();
+            }
+//            System.out.println("da: " + useCasesTitles.get(i).getText());
+        }
+    }
+
+    public void editUseCase(String useCaseTitle) {
+//        for (int i=0;i<useCasesIds.size();i++){
+//            driver.navigate().to(PageLink.USE_CASES+useCasesIds.get(i));
+//        }
+        for (int i = 0; i < useCasesTitles.size(); i++) {
+            if (useCasesTitles.get(i).getText().equals(useCaseTitle)) {
+                useCasesTitles.get(i).click();
+                waitForElementToBeClickable(txtTitle);
+                String newTitle = PREFIX + txtTitle.getAttribute("value").length() + SUFFIX;
+                txtTitle.clear();
+                txtTitle.sendKeys(newTitle);
+                btnSubmit.click();
+                waitForElementToBeClickable(btnCreateUseCase);
+            }
+//            System.out.println("da: " + useCasesTitles.get(i).getText());
+        }
+
+    }
+
+    public void deleteUseCase() {
+//        int useCasesTitlesListSize = useCasesTitles.size();
+        for (int i = 0; i <= useCasesTitles.size(); i++) {
+            if (useCasesTitles.get(i).getText().startsWith(PREFIX)) {
+                useCasesTitles.get(i).click();
+                waitForElementToBeClickable(btnDelete);
+                btnDelete.click();
+                waitForElementToBeClickable(btnConfirmDelete);
+                btnConfirmDelete.click();
+                waitForElementToBeClickable(btnCreateUseCase);
+                waitForElementToBeClickable(useCasesTitle);
+
+            }
+//            System.out.println("da: " + useCasesTitles.get(i).getText());
+        }
+
     }
 
 }

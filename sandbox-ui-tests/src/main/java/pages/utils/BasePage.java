@@ -34,7 +34,6 @@ public class BasePage {
 
 //    private static final Logger log = LogManager.getLogger(LoginCredentialsTest.class.getName());
 
-
     @FindBy(id = "pageLoading")
     static WebElement pageLoader;
 

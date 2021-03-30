@@ -12,6 +12,7 @@ import utils.BaseTest;
 import utils.ExcelUtility;
 import utils.ExtentFactory;
 
+
 public class UseCaseTest extends BaseTest {
     ExtentReports report;
     ExtentTest test;
@@ -44,17 +45,32 @@ public class UseCaseTest extends BaseTest {
         return testData;
     }
 
-//    @Test(dependsOnMethods = "goToUseCasesPage", dataProvider = "useCases")
-//    public void createUseCase(String title, String description, String expectedResult, String stepId) {
-//        useCasePage.createUseCase(title, description, expectedResult, stepId);
-//
-//    }
+    @Test(dependsOnMethods = "goToUseCasesPage", dataProvider = "useCases")
+    public void createUseCase(String title, String description, String expectedResult, String stepId) {
+        useCasePage.createUseCase(title, description, expectedResult, stepId);
 
-    //    @Test(dependsOnMethods = "createUseCase")
-    @Test(dependsOnMethods = "goToUseCasesPage")
-    public void editUseCase() {
-        useCasePage.getUseCaseText();
+//        useCasePage.getUseCaseText();
+//        useCasePage.getUseCaseIds(title);
+
     }
+
+    @Test(dependsOnMethods = "createUseCase", dataProvider = "useCases")
+    public void editUseCases(String title, String description, String expectedResult, String stepId){
+        useCasePage.editUseCase(title);
+
+    }
+
+    @Test(dependsOnMethods = "editUseCases")
+    public void deleteUseCase(){
+        useCasePage.deleteUseCase();
+    }
+
+//    @Test(dependsOnMethods = "createUseCase", enabled = false)
+////    @Test(dependsOnMethods = "goToUseCasesPage")
+//    public void editUseCase(String title, String description, String expectedResult, String stepId) {
+//        useCasePage.getUseCaseText();
+//        useCasePage.getUseCaseIds(title);
+//    }
 
 //    @Test(dependsOnMethods = "editUseCase", dataProvider = "useCases")
 //    public void nesto(String title, String description, String expectedResult, String stepId) {

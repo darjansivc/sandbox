@@ -7,4 +7,5 @@ public class PageLink {
 
     public static final String LOGIN = BASE_URL + "login";
     public static final String DASHBOARD = BASE_URL + "dashboard";
+    public static final String USE_CASES = BASE_URL + "use-cases/";
 }
