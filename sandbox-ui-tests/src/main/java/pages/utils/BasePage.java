@@ -106,8 +106,8 @@ public class BasePage {
 //    @FindBy(css = "#companyActivitiesViewport>tr>td:nth-child(2)")
 //    List<WebElement>
 
-    public static WebElement getBtnSave() {
-        return btnSave;
+    public static void clickWithJavaScript(WebElement webElement) {
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", webElement);
     }
 
 
@@ -462,18 +462,6 @@ public class BasePage {
         }
     }
 
-    public String getTenantID() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
-        Object result = js.executeScript("return Global.tenantID");
-
-//        String aaa = result.toString();
-        return result.toString();
-    }
-
-//    public static String getCurrentTenantName(){
-//        return currentTenant.getText();
-//    }
 
     public static void clickOnSelectAllCheckBox() {
         cbSelectAll.click();
