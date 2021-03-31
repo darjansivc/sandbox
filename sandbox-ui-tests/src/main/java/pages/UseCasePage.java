@@ -13,9 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UseCasePage extends BasePage {
+    private static final String PREFIX = "This field previously had ";
+    private static final String SUFFIX = " characters ";
     private final String baseUrl = new PropertyFile().get("baseUrl");
-    String PREFIX = "This field previously had ";
-    String SUFFIX = " characters ";
+    private List<Integer> createdUseCasesIds = new ArrayList<>();
 
 
     public static ArrayList<Integer> useCasesIds = new ArrayList<>();
@@ -121,6 +122,13 @@ public class UseCasePage extends BasePage {
             if (useCasesTitles.get(i).getText().equals(useCaseTitle)) {
                 useCasesTitles.get(i).click();
                 waitForElementToBeClickable(txtTitle);
+                String[] currentUseCasesId = driver.getCurrentUrl().split(PageLink.USE_CASES);
+
+                for (int j=0;j<currentUseCasesId.length; j++){
+                    System.out.println("value= " + currentUseCasesId[j]);
+                }
+                createdUseCasesIds.add(Integer.valueOf(currentUseCasesId[1]));
+
                 String newTitle = PREFIX + txtTitle.getAttribute("value").length() + SUFFIX;
                 txtTitle.clear();
                 txtTitle.sendKeys(newTitle);
@@ -134,9 +142,9 @@ public class UseCasePage extends BasePage {
 
     public void deleteUseCase() {
 //        int useCasesTitlesListSize = useCasesTitles.size();
-        for (int i = 0; i <= useCasesTitles.size(); i++) {
-            if (useCasesTitles.get(i).getText().startsWith(PREFIX)) {
-                useCasesTitles.get(i).click();
+
+        for (int i = 0; i < createdUseCasesIds.size(); i++) {
+                driver.navigate().to(PageLink.USE_CASES+ createdUseCasesIds.get(i));
                 waitForElementToBeClickable(btnDelete);
                 btnDelete.click();
                 waitForElementToBeClickable(btnConfirmDelete);
@@ -146,7 +154,7 @@ public class UseCasePage extends BasePage {
 
             }
 //            System.out.println("da: " + useCasesTitles.get(i).getText());
-        }
+
 
     }
 
