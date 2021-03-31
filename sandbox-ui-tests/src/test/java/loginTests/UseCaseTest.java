@@ -53,14 +53,16 @@ public class UseCaseTest extends BaseTest {
     @Test(dependsOnMethods = "goToUseCasesPage", dataProvider = "useCases")
     public void createUseCase(String title, String description, String expectedResult, String stepId) {
         useCasePage.createUseCase(title, description, expectedResult, stepId);
-//        useCasePage.getAddedUseCasesTitles(title);
-//        test.log(LogStatus.PASS, "Use cases are successfully added.");
+        useCasePage.getAddedUseCasesTitles(title);
+        test.log(LogStatus.INFO, "Use cases are added.");
     }
 
-//    @Test(dependsOnMethods = "goToUseCasesPage")
-//    public void areCasesAvailable() {
-//        assertTrue(useCasePage.darjanVerifyIfUseCasesAreAdded());
-//    }
+    @Test(dependsOnMethods = "createUseCase")
+    public void areCasesAvailable() {
+        assertTrue(useCasePage.darjanVerifyIfUseCasesAreAdded());
+        test.log(LogStatus.PASS, "Use cases are successfully added.");
+
+    }
 
     @Test(dependsOnMethods = "createUseCase", dataProvider = "useCases")
     public void editUseCases(String title, String description, String expectedResult, String stepId) {

@@ -88,7 +88,6 @@ public class UseCasePage extends BasePage {
     }
 
     public void getAddedUseCasesTitles(String useCaseTitle) {
-
         for (int i = 0; i < useCasesTitles.size(); i++) {
             if (useCasesTitles.get(i).getText().equals(useCaseTitle)) {
                foundedUseCases.add(useCasesTitles.get(i).getText());
