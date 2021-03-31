@@ -6,8 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.utils.BasePage;
 import test_data.PageLink;
-import utils.PropertyFile;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +13,10 @@ import java.util.List;
 public class UseCasePage extends BasePage {
     private static final String PREFIX = "This field previously had ";
     private static final String SUFFIX = " characters ";
-    private final String baseUrl = new PropertyFile().get("baseUrl");
     private List<Integer> createdUseCasesIds = new ArrayList<>();
+    private List<String> foundedUseCases = new ArrayList<>();
+    private List<String> newTitlesList = new ArrayList<>();
+    private int iterator;
 
 
     public static ArrayList<Integer> useCasesIds = new ArrayList<>();
@@ -68,8 +68,9 @@ public class UseCasePage extends BasePage {
         useCases.click();
     }
 
-    public void isUseCasesPage() {
+    public boolean isUseCasesPage() {
         waitForElementToBeVisible(btnCreateUseCase);
+        return btnCreateUseCase.isDisplayed();
     }
 
     public void createUseCase(String title, String description, String expectedResult, String stepId) {
@@ -80,81 +81,70 @@ public class UseCasePage extends BasePage {
 
         txtStepId.sendKeys(stepId);
         txtExpectedResult.sendKeys(Keys.ENTER);
-//        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", cbSwitch);
-
         clickWithJavaScript(cbSwitch);
         btnSubmit.click();
         waitForElementToBeClickable(btnCreateUseCase);
-
-
-//        getUseCaseIds(title);
+        iterator++;
     }
 
-    public void getUseCaseText() {
-        for (int i = 0; i < useCasesTitles.size(); i++) {
-            System.out.println("da: " + useCasesTitles.get(i).getText());
-        }
-    }
+    public void getAddedUseCasesTitles(String useCaseTitle) {
 
-    private void addUseCaseIdToList(Integer useCaseId) {
-        useCasesIds.add(useCaseId);
-    }
-
-    public void getUseCaseIds(String useCaseTitle) {
         for (int i = 0; i < useCasesTitles.size(); i++) {
             if (useCasesTitles.get(i).getText().equals(useCaseTitle)) {
-                useCasesTitles.get(i).click();
-                String currentUrl = driver.getCurrentUrl();
-                String[] useCaseId = currentUrl.split(PageLink.USE_CASES);
-                System.out.println("Use Case ID: " + useCaseId[1]);
-                addUseCaseIdToList(Integer.valueOf(useCaseId[1]));
-                driver.navigate().back();
+               foundedUseCases.add(useCasesTitles.get(i).getText());
             }
-//            System.out.println("da: " + useCasesTitles.get(i).getText());
         }
     }
 
+    public boolean darjanVerifyIfUseCasesAreAdded(){
+        if (foundedUseCases.size() == iterator){
+            return true;
+        }
+        return false;
+    }
+
+
     public void editUseCase(String useCaseTitle) {
-//        for (int i=0;i<useCasesIds.size();i++){
-//            driver.navigate().to(PageLink.USE_CASES+useCasesIds.get(i));
-//        }
         for (int i = 0; i < useCasesTitles.size(); i++) {
             if (useCasesTitles.get(i).getText().equals(useCaseTitle)) {
                 useCasesTitles.get(i).click();
                 waitForElementToBeClickable(txtTitle);
                 String[] currentUseCasesId = driver.getCurrentUrl().split(PageLink.USE_CASES);
 
-                for (int j=0;j<currentUseCasesId.length; j++){
-                    System.out.println("value= " + currentUseCasesId[j]);
-                }
                 createdUseCasesIds.add(Integer.valueOf(currentUseCasesId[1]));
 
                 String newTitle = PREFIX + txtTitle.getAttribute("value").length() + SUFFIX;
+                newTitlesList.add(newTitle);
                 txtTitle.clear();
                 txtTitle.sendKeys(newTitle);
                 btnSubmit.click();
                 waitForElementToBeClickable(btnCreateUseCase);
             }
-//            System.out.println("da: " + useCasesTitles.get(i).getText());
         }
 
     }
 
-    public void deleteUseCase() {
-//        int useCasesTitlesListSize = useCasesTitles.size();
-
-        for (int i = 0; i < createdUseCasesIds.size(); i++) {
-                driver.navigate().to(PageLink.USE_CASES+ createdUseCasesIds.get(i));
-                waitForElementToBeClickable(btnDelete);
-                btnDelete.click();
-                waitForElementToBeClickable(btnConfirmDelete);
-                btnConfirmDelete.click();
-                waitForElementToBeClickable(btnCreateUseCase);
-                waitForElementToBeClickable(useCasesTitle);
-
+    public boolean verifyIfUseCaseTitlesAreChanged() {
+        for (int i = 0; i < newTitlesList.size(); i++) {
+            for (int j = 0; j < useCasesTitles.size(); j++) {
+                if (!newTitlesList.get(i).equals(useCasesTitles.get(j))) {
+                    return false;
+                }
             }
-//            System.out.println("da: " + useCasesTitles.get(i).getText());
+        }
+        return true;
+    }
 
+    public void deleteUseCase() {
+        for (int i = 0; i < createdUseCasesIds.size(); i++) {
+            driver.navigate().to(PageLink.USE_CASES + createdUseCasesIds.get(i));
+            waitForElementToBeClickable(btnDelete);
+            btnDelete.click();
+            waitForElementToBeClickable(btnConfirmDelete);
+            btnConfirmDelete.click();
+            waitForElementToBeClickable(btnCreateUseCase);
+
+        }
 
     }
 

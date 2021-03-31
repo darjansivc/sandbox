@@ -35,5 +35,3 @@ public class LoginPage extends BasePage {
     }
 
 }
-//"input[name='email']"
-//"input[name='password']"

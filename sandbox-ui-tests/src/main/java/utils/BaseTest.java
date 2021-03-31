@@ -1,5 +1,8 @@
 package utils;
 
+import com.relevantcodes.extentreports.LogStatus;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import utils.ExtentFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +18,7 @@ import org.testng.annotations.Parameters;
 import utils.PropertyFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 

@@ -49,7 +49,6 @@ public class LoginTest extends BaseTest {
     public void verify() {
         waitForElementToBeVisible(dashboardPage.getUseCasesCard());
         dashboardPage.isInitialized();
-//        waitForElementToBeClickable(dashboardPage.getUseCasesCard());
 
         assertEquals(driver.getCurrentUrl(), PageLink.DASHBOARD);
         test.log(LogStatus.PASS, "Login was successful!");
