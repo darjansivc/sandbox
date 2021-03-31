@@ -16,7 +16,7 @@ public class UseCasePage extends BasePage {
     private List<Integer> createdUseCasesIds = new ArrayList<>();
     private List<String> foundedUseCases = new ArrayList<>();
     private List<String> newTitlesList = new ArrayList<>();
-    private int iterator;
+    private int numberOfIterations;
 
 
     public static ArrayList<Integer> useCasesIds = new ArrayList<>();
@@ -76,6 +76,7 @@ public class UseCasePage extends BasePage {
     public void createUseCase(String title, String description, String expectedResult, String stepId) {
         btnCreateUseCase.click();
         txtTitle.sendKeys(title);
+        foundedUseCases.add(title); //dodato
         txtDescription.sendKeys(description);
         txtExpectedResult.sendKeys(expectedResult);
 
@@ -84,19 +85,20 @@ public class UseCasePage extends BasePage {
         clickWithJavaScript(cbSwitch);
         btnSubmit.click();
         waitForElementToBeClickable(btnCreateUseCase);
-        iterator++;
+
+        numberOfIterations++;
     }
 
-    public void getAddedUseCasesTitles(String useCaseTitle) {
-        for (int i = 0; i < useCasesTitles.size(); i++) {
-            if (useCasesTitles.get(i).getText().equals(useCaseTitle)) {
-               foundedUseCases.add(useCasesTitles.get(i).getText());
-            }
-        }
-    }
+//    public void getAddedUseCasesTitles(String useCaseTitle) {
+//        for (int i = 0; i < useCasesTitles.size(); i++) {
+//            if (useCasesTitles.get(i).getText().equals(useCaseTitle)) {
+//                foundedUseCases.add(useCasesTitles.get(i).getText());
+//            }
+//        }
+//    }
 
-    public boolean darjanVerifyIfUseCasesAreAdded(){
-        if (foundedUseCases.size() == iterator){
+    public boolean verifyIfUseCasesAreAdded() {
+        if (foundedUseCases.size() == numberOfIterations) {
             return true;
         }
         return false;
@@ -121,6 +123,13 @@ public class UseCasePage extends BasePage {
             }
         }
 
+    }
+
+    public boolean verifyIfUseCasesAreEdited() {
+        if (newTitlesList.size() == numberOfIterations) {
+            return true;
+        }
+        return false;
     }
 
     public boolean verifyIfUseCaseTitlesAreChanged() {

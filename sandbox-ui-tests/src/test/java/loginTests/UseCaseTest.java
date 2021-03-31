@@ -42,6 +42,7 @@ public class UseCaseTest extends BaseTest {
     public void goToUseCasesPage() {
         useCasePage.goToUseCasesPage();
         assertTrue(useCasePage.isUseCasesPage(), "It is not 'Use Cases' page");
+        test.log(LogStatus.PASS, "You are not on the 'Use cases' page.");
     }
 
     @DataProvider(name = "useCases")
@@ -53,13 +54,13 @@ public class UseCaseTest extends BaseTest {
     @Test(dependsOnMethods = "goToUseCasesPage", dataProvider = "useCases")
     public void createUseCase(String title, String description, String expectedResult, String stepId) {
         useCasePage.createUseCase(title, description, expectedResult, stepId);
-        useCasePage.getAddedUseCasesTitles(title);
+//        useCasePage.getAddedUseCasesTitles(title);
         test.log(LogStatus.INFO, "Use cases are added.");
     }
 
     @Test(dependsOnMethods = "createUseCase")
     public void areCasesAvailable() {
-        assertTrue(useCasePage.darjanVerifyIfUseCasesAreAdded());
+        assertTrue(useCasePage.verifyIfUseCasesAreAdded());
         test.log(LogStatus.PASS, "Use cases are successfully added.");
 
     }
@@ -67,7 +68,11 @@ public class UseCaseTest extends BaseTest {
     @Test(dependsOnMethods = "createUseCase", dataProvider = "useCases")
     public void editUseCases(String title, String description, String expectedResult, String stepId) {
         useCasePage.editUseCase(title);
-//        useCasePage.verifyIfUseCaseTitlesAreChanged();
+    }
+
+    @Test(dependsOnMethods = "editUseCases")
+    public void areCasesEdited(){
+        assertTrue(useCasePage.verifyIfUseCasesAreEdited());
     }
 
     @Test(dependsOnMethods = "editUseCases")
