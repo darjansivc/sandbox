@@ -9,14 +9,13 @@ import java.io.File;
 import java.io.IOException;
 
 public class Screenshots {
-    private static String osPath = BaseTest.setFolderPath();
-    private static String currentScreenShotReportFolder = ExtentFactory.getCurrentReportFolderPathForScreenShot();
+    private static String OS_PATH = BaseTest.setFolderPath();
+    private static String CURRENT_SCREENSHOT_REPORT_FOLDER = ExtentFactory.getCurrentReportFolderPathForScreenShot();
 
     public static String takeScreenshot(WebDriver driver, String fileName) throws IOException {
         fileName = fileName + ".png";
-//        String directory = currentReportFolder + "screenshoots\\";
         File sourceFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(sourceFile, new File(System.getProperty("user.dir") + "/" + osPath + currentScreenShotReportFolder + fileName));
+        FileUtils.copyFile(sourceFile, new File(System.getProperty("user.dir") + "/" + OS_PATH + CURRENT_SCREENSHOT_REPORT_FOLDER + fileName));
         String destination = fileName;
         return destination;
     }

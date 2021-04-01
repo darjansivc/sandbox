@@ -12,10 +12,6 @@ public class DashboardPage extends BasePage {
         super(driver);
     }
 
-//    public WebElement getUseCasesCard() {
-//        return useCasesCard;
-//    }
-
     @FindBy(css = ".dashboard .row")
     private WebElement cardsSection;
 
@@ -40,28 +36,15 @@ public class DashboardPage extends BasePage {
 
     public boolean isDashboardSection() {
         waitForElementToBeVisible(cardsSection);
-        if (dashboardTitle.getText().equals("Dashboard") && progressBar.isDisplayed() && isExpectedUrl(PageLink.DASHBOARD)) {
-            return true;
-        }
-        return false;
+        return dashboardTitle.getText().equals("Dashboard") && progressBar.isDisplayed() && isExpectedUrl(PageLink.DASHBOARD);
     }
 
     private boolean isCardSection() {
-        if (profileCard.isDisplayed() && useCasesCard.isDisplayed() && playgroundCard.isDisplayed() && reportsCard.isDisplayed()) {
-            return true;
-        }
-        return false;
+        return profileCard.isDisplayed() && useCasesCard.isDisplayed() && playgroundCard.isDisplayed() && reportsCard.isDisplayed();
     }
 
     public boolean isDashboardPage() {
-        if (isDashboardSection() && isCardSection()) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean isDisplayedUseCasesCard() {
-        return useCasesCard.isDisplayed();
+        return isDashboardSection() && isCardSection();
     }
 
 }

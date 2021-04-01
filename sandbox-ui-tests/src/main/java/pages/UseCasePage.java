@@ -19,7 +19,7 @@ public class UseCasePage extends BasePage {
     private int numberOfIterations;
 
 
-    public static ArrayList<Integer> useCasesIds = new ArrayList<>();
+//    public static ArrayList<Integer> useCasesIds = new ArrayList<>();
 
     public UseCasePage(WebDriver driver) {
         super(driver);
@@ -76,7 +76,7 @@ public class UseCasePage extends BasePage {
     public void createUseCase(String title, String description, String expectedResult, String stepId) {
         btnCreateUseCase.click();
         txtTitle.sendKeys(title);
-        foundedUseCases.add(title); //dodato
+        foundedUseCases.add(title);
         txtDescription.sendKeys(description);
         txtExpectedResult.sendKeys(expectedResult);
 
@@ -90,10 +90,7 @@ public class UseCasePage extends BasePage {
     }
 
     public boolean verifyIfUseCasesAreAdded() {
-        if (foundedUseCases.size() == numberOfIterations) {
-            return true;
-        }
-        return false;
+        return foundedUseCases.size() == numberOfIterations;
     }
 
     public void editUseCase(String useCaseTitle) {

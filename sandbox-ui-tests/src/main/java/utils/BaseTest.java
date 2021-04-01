@@ -44,7 +44,6 @@ public class BaseTest {
             throw new RuntimeException("invalid browser name");
         }
 
-
     }
 
     private WebDriver chromeDriver(String baseUrl, String loginLink) {

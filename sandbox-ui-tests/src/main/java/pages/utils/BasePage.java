@@ -19,8 +19,6 @@ public class BasePage {
         PageFactory.initElements(driver, this);
     }
 
-//    private static final Logger log = LogManager.getLogger(LoginCredentialsTest.class.getName());
-
     public static String getCurrentTimeAndDate() {
         SimpleDateFormat formatter = new SimpleDateFormat("HHmmssddMMyyyy");
         Date date = new Date();
@@ -33,10 +31,7 @@ public class BasePage {
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", webElement);
     }
     public static boolean isExpectedUrl(String pageLink){
-        if (driver.getCurrentUrl().equals(pageLink)){
-            return true;
-        }
-        return false;
+        return driver.getCurrentUrl().equals(pageLink);
     }
 
     public static void waitForElementToBeClickable(WebElement selector) {
