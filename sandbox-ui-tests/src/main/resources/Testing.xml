@@ -4,8 +4,8 @@
 <suite name="Testing suit" >
     <test name="Mix" group-by-instances="true">
         <classes>
-            <class name="loginTests.LoginTest"/>
-            <class name="loginTests.UseCaseTest"/>
+            <class name="tests.LoginTest"/>
+            <class name="tests.UseCaseTest"/>
         </classes>
     </test>
 
