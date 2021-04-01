@@ -37,8 +37,9 @@ public class UseCaseTest extends BaseTest {
     @Test
     public void goToUseCasesPage() {
         useCasePage.goToUseCasesPage();
-        assertTrue(useCasePage.isUseCasesPage(), "It is not 'Use Cases' page");
-        test.log(LogStatus.PASS, "You are not on the 'Use cases' page.");
+
+        assertTrue(useCasePage.isUseCasesPage(), "It is not the 'Use Cases' page");
+        test.log(LogStatus.PASS, "You are on the 'Use cases' page.");
     }
 
     @DataProvider(name = "useCases")
@@ -47,40 +48,48 @@ public class UseCaseTest extends BaseTest {
         return testData;
     }
 
+    //  CREATE/VERIFY USE CASES
     @Test(dependsOnMethods = "goToUseCasesPage", dataProvider = "useCases")
     public void createUseCase(String title, String description, String expectedResult, String stepId) {
         useCasePage.createUseCase(title, description, expectedResult, stepId);
+
         test.log(LogStatus.INFO, "Use cases are created.");
     }
 
     @Test(dependsOnMethods = "createUseCase")
-    public void areCasesAvailable() {
+    public void verifyIfUseCasesAreAdded() {
         assertTrue(useCasePage.verifyIfUseCasesAreAdded());
-        test.log(LogStatus.PASS, "Use cases are successfully added.");
 
+        test.log(LogStatus.PASS, "Use cases are added successfully.");
     }
 
-    @Test(dependsOnMethods = "createUseCase", dataProvider = "useCases")
+    //  EDIT/VERIFY USE CASES
+    @Test(dependsOnMethods = "verifyIfUseCasesAreAdded", dataProvider = "useCases")
     public void editUseCases(String title, String description, String expectedResult, String stepId) {
         useCasePage.editUseCase(title);
+
         test.log(LogStatus.INFO, "Use case editing is done.");
     }
 
     @Test(dependsOnMethods = "editUseCases")
     public void verifyIfUseCasesAreEdited(){
         assertTrue(useCasePage.verifyIfUseCasesAreEdited());
-        test.log(LogStatus.PASS, "Use case editing was successful!");
+
+        test.log(LogStatus.PASS, "Use cases editing was successful!");
     }
 
-    @Test(dependsOnMethods = "editUseCases")
+    //  DELETE/VERIFY USE CASES
+    @Test(dependsOnMethods = "verifyIfUseCasesAreEdited")
     public void deleteUseCase() {
         useCasePage.deleteUseCase();
-        test.log(LogStatus.PASS, "Use cases deletion is done.");
+
+        test.log(LogStatus.INFO, "Use cases deletion is done.");
     }
 
     @Test(dependsOnMethods = "deleteUseCase")
     public void verifyIfAddedUseCasesAreDeleted(){
         useCasePage.verifyIfAddedUseCasesAreDeleted();
+
         test.log(LogStatus.PASS, "Use cases deletion was successful!");
     }
 
@@ -98,6 +107,4 @@ public class UseCaseTest extends BaseTest {
         report.endTest(test);
         report.flush();
     }
-
-
 }

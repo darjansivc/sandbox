@@ -28,15 +28,15 @@ public class LoginTest extends BaseTest {
         report = ExtentFactory.getInstance();
         test = report.startTest("<b>Login - Enter Credentials</b><br/>(" + getClass().getSimpleName() + ")");
         test.setDescription("This test will login user into 'QA Sandbox' application. Steps:<br/>" +
-                "- Go to QA Sandbox login page.</br>- Enter USERNAME and PASSWORD<br/>-Login</br>-Verify login ");
+                "- Go to QA Sandbox login page.</br>- Enter USERNAME and PASSWORD<br/>- Login</br>- Verify login ");
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
     }
 
     @Test
     public void login() {
-        loginPage.setUserNameAndPasswordLogin();
-        test.log(LogStatus.PASS, "Test Passed");
+        loginPage.setUserNameAndPasswordAndLogin();
+        test.log(LogStatus.INFO, "Login credentials entered and 'Submit' button clicked.");
     }
 
     @Test(dependsOnMethods = "login")

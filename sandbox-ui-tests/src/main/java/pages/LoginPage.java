@@ -24,7 +24,7 @@ public class LoginPage extends BasePage {
     @FindBy(css = "button[data-testid='submit_btn']")
     private WebElement btnSubmit;
 
-    public void setUserNameAndPasswordLogin() {
+    public void setUserNameAndPasswordAndLogin() {
         txtEmailField.clear();
         txtEmailField.sendKeys(loginEmail);
 
