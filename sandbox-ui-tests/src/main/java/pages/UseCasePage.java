@@ -111,6 +111,7 @@ public class UseCasePage extends BasePage {
     }
 
     public boolean verifyIfUseCasesAreEdited() {
+        waitForElementToBeClickable(btnCreateUseCase);
         return newTitlesList.size() == numberOfIterations;
     }
 
