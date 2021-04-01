@@ -3,24 +3,19 @@ package loginTests;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pages.DashboardPage;
 import pages.LoginPage;
-import test_data.PageLink;
-import pages.utils.BasePage;
 import utils.BaseTest;
 import utils.ExtentFactory;
 import utils.Screenshots;
 
 import java.io.IOException;
 
-import static org.testng.Assert.assertEquals;
-import static pages.utils.BasePage.waitForElementToBeVisible;
+import static org.testng.Assert.assertTrue;
 
 public class LoginTest extends BaseTest {
     ExtentReports report;
@@ -32,26 +27,28 @@ public class LoginTest extends BaseTest {
     public void beforeClass() {
         report = ExtentFactory.getInstance();
         test = report.startTest("<b>Login - Enter Credentials</b><br/>(" + getClass().getSimpleName() + ")");
-        test.setDescription("First step in Login process - Entering the user name and password.<br/>This test will:<br/>" +
-                "- Go to ZUGSEIL login page.</br>- Enter USERNAME and PASSWORD<br/>");
+        test.setDescription("This test will login user into 'QA Sandbox' application. Steps:<br/>" +
+                "- Go to QA Sandbox login page.</br>- Enter USERNAME and PASSWORD<br/>-Login</br>-Verify login ");
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
-
     }
 
     @Test
     public void login() {
-        loginPage.setUserNameAndPassword();
+        loginPage.setUserNameAndPasswordLogin();
         test.log(LogStatus.PASS, "Test Passed");
     }
 
     @Test(dependsOnMethods = "login")
-    public void verify() {
-        waitForElementToBeVisible(dashboardPage.getUseCasesCard());
-        dashboardPage.isInitialized();
+    public void verifyIfLoginWasSuccessful() {
+        assertTrue(dashboardPage.isDashboardSection());
+        test.log(LogStatus.PASS, "URL belongs to 'Dashboard' page.");
 
-        assertEquals(driver.getCurrentUrl(), PageLink.DASHBOARD);
+        assertTrue(dashboardPage.isDashboardPage(), "'Dashboard' is not displayed as expected.");
+        test.log(LogStatus.PASS, "'Dashboard' page is displayed.");
+
         test.log(LogStatus.PASS, "Login was successful!");
+
     }
 
     @AfterMethod

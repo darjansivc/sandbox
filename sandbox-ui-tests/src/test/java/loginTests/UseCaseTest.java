@@ -28,13 +28,9 @@ public class UseCaseTest extends BaseTest {
     public void beforeClass() throws Exception {
         report = ExtentFactory.getInstance();
         test = report.startTest("<b>Use Cases</b><br/>(" + getClass().getSimpleName() + ")");
-        test.setDescription("This test will: \ncreate use cases\n edit use cases\n delete use cases");
+        test.setDescription("This test will perform several Use case-related operations:</br>- Create use cases</br>- Edit use cases</br>- Delete use cases");
         useCasePage = new UseCasePage(driver);
 
-
-//        String excelSheetName = "UseCases";
-//        String excelFilePath = "src/main/resources/";
-//        String excelFileName = "UseCases.xlsx";
         ExcelUtility.setExcelFile("src/main/resources/" + "UseCases.xlsx", "UseCases");
     }
 
@@ -54,8 +50,7 @@ public class UseCaseTest extends BaseTest {
     @Test(dependsOnMethods = "goToUseCasesPage", dataProvider = "useCases")
     public void createUseCase(String title, String description, String expectedResult, String stepId) {
         useCasePage.createUseCase(title, description, expectedResult, stepId);
-//        useCasePage.getAddedUseCasesTitles(title);
-        test.log(LogStatus.INFO, "Use cases are added.");
+        test.log(LogStatus.INFO, "Use cases are created.");
     }
 
     @Test(dependsOnMethods = "createUseCase")
@@ -68,16 +63,25 @@ public class UseCaseTest extends BaseTest {
     @Test(dependsOnMethods = "createUseCase", dataProvider = "useCases")
     public void editUseCases(String title, String description, String expectedResult, String stepId) {
         useCasePage.editUseCase(title);
+        test.log(LogStatus.INFO, "Use case editing is done.");
     }
 
     @Test(dependsOnMethods = "editUseCases")
-    public void areCasesEdited(){
+    public void verifyIfUseCasesAreEdited(){
         assertTrue(useCasePage.verifyIfUseCasesAreEdited());
+        test.log(LogStatus.PASS, "Use case editing was successful!");
     }
 
     @Test(dependsOnMethods = "editUseCases")
     public void deleteUseCase() {
         useCasePage.deleteUseCase();
+        test.log(LogStatus.PASS, "Use cases deletion is done.");
+    }
+
+    @Test(dependsOnMethods = "deleteUseCase")
+    public void verifyIfAddedUseCasesAreDeleted(){
+        useCasePage.verifyIfAddedUseCasesAreDeleted();
+        test.log(LogStatus.PASS, "Use cases deletion was successful!");
     }
 
     @AfterMethod

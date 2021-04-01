@@ -89,14 +89,6 @@ public class UseCasePage extends BasePage {
         numberOfIterations++;
     }
 
-//    public void getAddedUseCasesTitles(String useCaseTitle) {
-//        for (int i = 0; i < useCasesTitles.size(); i++) {
-//            if (useCasesTitles.get(i).getText().equals(useCaseTitle)) {
-//                foundedUseCases.add(useCasesTitles.get(i).getText());
-//            }
-//        }
-//    }
-
     public boolean verifyIfUseCasesAreAdded() {
         if (foundedUseCases.size() == numberOfIterations) {
             return true;
@@ -104,16 +96,13 @@ public class UseCasePage extends BasePage {
         return false;
     }
 
-
     public void editUseCase(String useCaseTitle) {
         for (int i = 0; i < useCasesTitles.size(); i++) {
             if (useCasesTitles.get(i).getText().equals(useCaseTitle)) {
                 useCasesTitles.get(i).click();
                 waitForElementToBeClickable(txtTitle);
                 String[] currentUseCasesId = driver.getCurrentUrl().split(PageLink.USE_CASES);
-
                 createdUseCasesIds.add(Integer.valueOf(currentUseCasesId[1]));
-
                 String newTitle = PREFIX + txtTitle.getAttribute("value").length() + SUFFIX;
                 newTitlesList.add(newTitle);
                 txtTitle.clear();
@@ -122,25 +111,10 @@ public class UseCasePage extends BasePage {
                 waitForElementToBeClickable(btnCreateUseCase);
             }
         }
-
     }
 
     public boolean verifyIfUseCasesAreEdited() {
-        if (newTitlesList.size() == numberOfIterations) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean verifyIfUseCaseTitlesAreChanged() {
-        for (int i = 0; i < newTitlesList.size(); i++) {
-            for (int j = 0; j < useCasesTitles.size(); j++) {
-                if (!newTitlesList.get(i).equals(useCasesTitles.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return newTitlesList.size() == numberOfIterations;
     }
 
     public void deleteUseCase() {
@@ -153,7 +127,17 @@ public class UseCasePage extends BasePage {
             waitForElementToBeClickable(btnCreateUseCase);
 
         }
+    }
 
+    public boolean verifyIfAddedUseCasesAreDeleted() {
+        for (int i = 0; i < useCasesTitles.size(); i++) {
+            for (int j = 0; j < newTitlesList.size(); j++) {
+                if (useCasesTitles.get(i).getText().equals(newTitlesList.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

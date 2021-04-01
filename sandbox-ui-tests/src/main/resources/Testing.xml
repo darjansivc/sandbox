@@ -2,12 +2,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Testing suit" >
-
-
     <test name="Mix" group-by-instances="true">
         <classes>
             <class name="loginTests.LoginTest"/>
-            <class name="loginTests.UseCaseTest"></class>
+            <class name="loginTests.UseCaseTest"/>
         </classes>
     </test>
 
