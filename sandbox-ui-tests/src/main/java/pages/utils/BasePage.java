@@ -30,6 +30,7 @@ public class BasePage {
     public static void clickWithJavaScript(WebElement webElement) {
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", webElement);
     }
+
     public static boolean isExpectedUrl(String pageLink){
         return driver.getCurrentUrl().equals(pageLink);
     }

@@ -88,7 +88,7 @@ public class UseCaseTest extends BaseTest {
 
     @Test(dependsOnMethods = "deleteUseCase")
     public void verifyIfAddedUseCasesAreDeleted(){
-        useCasePage.verifyIfAddedUseCasesAreDeleted();
+        assertTrue(useCasePage.verifyIfAddedUseCasesAreDeleted(), "Use case is not deleted.");
 
         test.log(LogStatus.PASS, "Use cases deletion was successful!");
     }

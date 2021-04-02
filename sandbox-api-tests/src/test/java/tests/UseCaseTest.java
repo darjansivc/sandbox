@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.*;
 import static utilities.Helper.technologyId;
 
 public class UseCaseTest {
-    private static final int NUMBER_OF_ITERATIONS = 2;
+    private static final int NUMBER_OF_ITERATIONS = 4;
     private JsonPath initialUseCaseResponse;
 
     RequestFactory response = new RequestFactory();
@@ -156,7 +156,7 @@ public class UseCaseTest {
     public void verifyIfDeletedUseCaseExist() {
         for (Integer useCaseId : usecaseIds) {
             Response responseBody = response.getUseCase(useCaseId)
-                    .then()
+                    .then().log().ifValidationFails()
                     .statusCode(404).extract().response();
 
             JsonPath jsonPath = responseBody.jsonPath();

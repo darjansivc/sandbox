@@ -19,8 +19,6 @@ public class UseCasePage extends BasePage {
     private int numberOfIterations;
 
 
-//    public static ArrayList<Integer> useCasesIds = new ArrayList<>();
-
     public UseCasePage(WebDriver driver) {
         super(driver);
     }
