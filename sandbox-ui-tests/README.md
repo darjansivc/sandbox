@@ -35,9 +35,18 @@ https://github.com/darjansivc/sandbox.git
 > **Note:**
 >
 > ```chromedriver``` for macOS and Microsoft Windows has been added to the project under ```src/test/java/base/drivers``` .
->  ```TestBase.java``` will detect operating system and it will switch drivers automatically.
+>  ```TestBase.java``` will detect the operating system and it will switch drivers automatically.
 >
-> If you are a macOS user you may expriance dificulty during code run. If ```"chromedriver" cannot be opened because the developer cannot be verified"``` message show up everything and everything you need is to Open `terminal`, navigate to folder with macOS chromedriver. In our case `src/test/java/base/drivers/mac_drivers/chromedriver` and run command:
+> f you are a macOS user you may experience difficulty during code run. If ```"chromedriver" cannot be opened because the developer cannot be verified"``` message show up everything and everything you need is to Open `terminal`, navigate to folder with macOS chromedriver. In our case `src/test/java/base/drivers/mac_drivers/chromedriver` and run command:
 ```
-xattr -d com.apple.quarantine <name-of-executable>
+xattr -d com.apple.quarantine chromedriver
 ```
+## Test Execution
+Test Suite is defined in `TestNG.xml` file which you can find in `src/main/resources/` folder.
+
+Execute automated tests by right mouse clicking on `TestNG.xml` file and pressing `Run`.
+
+### Report
+After the run is done, a report will be generated in the `extent-reports` folder in the root of the project.
+
+> **NOTE:** If you want to run automated tests with your own credentials, to change environment etc., please change them in the `src/main/resources/global.properties`
